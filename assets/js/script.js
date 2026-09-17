@@ -328,3 +328,32 @@ function initBackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9egRkibvoKq966CqZJKMh05CslSKD5wvRteXPbSL7xBD840mO0UUrhSqTDWSeGKIVAQ/exec";
+
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    })
+      .then(() => {
+        alert('ส่งข้อความสำเร็จ! ทีมงาน AdClinic จะติดต่อกลับโดยเร็วที่สุด');
+        contactForm.reset();
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('เกิดข้อผิดพลาด กรุณาลองใหม่ หรือโทร 095-553-0999');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+      });
+  });
+}
