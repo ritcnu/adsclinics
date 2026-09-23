@@ -822,5 +822,135 @@
   <!-- AOS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="assets/js/script.js"></script>
+
+<!-- ===== Floating Contact Buttons ===== -->
+<style>
+  .fc-wrap {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    font-family: 'Prompt', 'Noto Sans Thai', sans-serif;
+  }
+
+  .fc-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .fc-wrap.open .fc-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .fc-wrap.open .fc-item:nth-child(1) { transition-delay: .05s; }
+  .fc-wrap.open .fc-item:nth-child(2) { transition-delay: .10s; }
+  .fc-wrap.open .fc-item:nth-child(3) { transition-delay: .15s; }
+
+  .fc-label {
+    background: #fff;
+    color: #0d1b5e;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.15);
+    white-space: nowrap;
+  }
+
+  .fc-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    text-decoration: none;
+    color: #fff;
+    transition: transform .2s ease;
+  }
+  .fc-btn:hover { transform: scale(1.08); }
+  .fc-btn svg { width: 26px; height: 26px; fill: #fff; }
+
+  .fc-phone      { background: #f97316; }
+  .fc-line       { background: #06c755; }
+  .fc-messenger  { background: linear-gradient(135deg,#00b2ff,#006aff); }
+
+  .fc-main {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #0d1b5e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(13,27,94,.4);
+    cursor: pointer;
+    border: none;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .fc-main:hover { background: #142575; }
+  .fc-main svg {
+    width: 26px;
+    height: 26px;
+    fill: #fff;
+    transition: transform .3s ease;
+  }
+  .fc-wrap.open .fc-main svg { transform: rotate(135deg); }
+
+  @media (max-width: 480px) {
+    .fc-wrap { right: 14px; bottom: 14px; }
+    .fc-label { display: none; }
+  }
+</style>
+
+<div class="fc-wrap open" id="fcWrap">
+
+  <!-- Messenger -->
+  <a class="fc-item" href="https://m.me/adclinics" target="_blank" rel="noopener">
+    <span class="fc-label">แชท Messenger</span>
+    <span class="fc-btn fc-messenger">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.15 2 11.27c0 2.9 1.42 5.49 3.64 7.19V22l3.33-1.83c.94.26 1.94.4 2.98.4 5.52 0 10-4.15 10-9.27S17.52 2 12 2zm.98 12.42-2.55-2.72-4.98 2.72 5.48-5.81 2.6 2.72 4.93-2.72-5.48 5.81z"/></svg>
+    </span>
+  </a>
+
+  <!-- LINE -->
+  <a class="fc-item" href="https://line.me/ti/p/~@853vcwei" target="_blank" rel="noopener">
+    <span class="fc-label">แชท LINE</span>
+    <span class="fc-btn fc-line">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.98 2 10.7c0 4.2 3.44 7.72 8.13 8.45.32.07.75.21.86.48.1.25.06.63.03.88l-.14.9c-.04.25-.2.98.85.53 1.06-.44 5.7-3.36 7.78-5.75C20.9 13.98 22 12.42 22 10.7 22 5.98 17.52 2 12 2zM8.5 13.2H6.7a.4.4 0 0 1-.4-.4V8.6a.4.4 0 0 1 .8 0v3.8h1.4a.4.4 0 0 1 0 .8zm1.9 0a.4.4 0 0 1-.4-.4V8.6a.4.4 0 0 1 .8 0v4.2a.4.4 0 0 1-.4.4zm4.7 0a.4.4 0 0 1-.32-.16l-2-2.7v2.46a.4.4 0 0 1-.8 0V8.6a.4.4 0 0 1 .72-.24l2 2.7V8.6a.4.4 0 0 1 .8 0v4.2a.4.4 0 0 1-.4.4zm3.6 0h-1.8a.4.4 0 0 1-.4-.4V8.6a.4.4 0 0 1 .4-.4h1.8a.4.4 0 0 1 0 .8h-1.4v1h1.3a.4.4 0 0 1 0 .8h-1.3v1h1.4a.4.4 0 0 1 0 .8z"/></svg>
+    </span>
+  </a>
+
+  <!-- Phone -->
+  <a class="fc-item" href="tel:0955530999">
+    <span class="fc-label">โทร 095-553-0999</span>
+    <span class="fc-btn fc-phone">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
+    </span>
+  </a>
+
+  <!-- Toggle button -->
+  <button class="fc-main" id="fcToggle" aria-label="ติดต่อเรา">
+    <svg viewBox="0 0 24 24"><path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
+  </button>
+</div>
+
+<script>
+  document.getElementById('fcToggle').addEventListener('click', function () {
+    document.getElementById('fcWrap').classList.toggle('open');
+  });
+</script>
+<!-- ===== /Floating Contact Buttons ===== -->
+  
 </body>
 </html>
